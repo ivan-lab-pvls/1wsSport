@@ -13,11 +13,11 @@ class ReadAboutArticleOnTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Color.fromARGB(255, 7, 7, 10),
+      backgroundColor: const Color.fromARGB(255, 7, 7, 10),
       child: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(14),
-          color: Color.fromARGB(255, 7, 7, 10),
+          color: const Color.fromARGB(255, 7, 7, 10),
           child: ListView(
             children: [
               Row(

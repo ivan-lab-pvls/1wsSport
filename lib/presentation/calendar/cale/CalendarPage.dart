@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_final_fields, avoid_unnecessary_containers
+// ignore_for_file: file_names, use_key_in_widget_constructors, prefer_final_fields, avoid_unnecessary_containers, use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class _CalendarScreenPageState extends State<CalendarScreenPage> {
   String selectedDayToData = '';
   final DATAAXS dataRepository = DATAAXS();
   final TextEditingController _emailController = TextEditingController();
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
   String _cachedEmail = 'Name';
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _CalendarScreenPageState extends State<CalendarScreenPage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text('Enter Name'),
+          title: const Text('Enter Name'),
           content: Column(
             children: [
               CupertinoTextField(
@@ -53,7 +53,7 @@ class _CalendarScreenPageState extends State<CalendarScreenPage> {
           ),
           actions: [
             CupertinoDialogAction(
-              child: Text('Save'),
+              child: const Text('Save'),
               onPressed: () async {
                 String email = _emailController.text;
                 if (email.isNotEmpty) {
@@ -67,7 +67,7 @@ class _CalendarScreenPageState extends State<CalendarScreenPage> {
               },
             ),
             CupertinoDialogAction(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, unused_element
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +31,7 @@ class _PageOfNewsForShowState extends State<PageOfNewsForShow> {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          color: Color.fromARGB(255, 7, 7, 10),
+          color: const Color.fromARGB(255, 7, 7, 10),
           child: ListView(
             children: [
               const SizedBox(height: 20),

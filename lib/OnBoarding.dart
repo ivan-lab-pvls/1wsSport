@@ -1,11 +1,16 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+// ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'MainDefaultScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -40,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) {
-                    return MyHomePage();
+                    return const MyHomePage();
                   },
                 ));
                 setState(() {
@@ -94,7 +99,7 @@ class OnboardingPage extends StatelessWidget {
   final String title;
   final String description;
 
-  const OnboardingPage({
+  const OnboardingPage({super.key, 
     required this.imagePath,
     required this.title,
     required this.description,

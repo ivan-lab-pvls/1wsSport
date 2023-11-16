@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, must_be_immutable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -11,7 +13,7 @@ class Settings extends StatefulWidget {
   @override
   State<Settings> createState() => _SettingsState();
 }
-
+final InAppReview inAppReview = InAppReview.instance;
 class _SettingsState extends State<Settings> {
   bool isSwitched = false;
 
@@ -31,7 +33,7 @@ class _SettingsState extends State<Settings> {
                 fixa: 'Rate App',
                 da: '',
                 onTap: () {
-                  // inAppReview.openStoreListing(appStoreId: '6467123708');
+                  inAppReview.openStoreListing(appStoreId: '6472300004');
                 },
               ),
               fasdfascas(

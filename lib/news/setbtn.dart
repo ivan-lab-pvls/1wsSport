@@ -1,5 +1,6 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import 'widgets/const.dart';
 
@@ -23,7 +24,7 @@ class fasdfascas extends StatelessWidget {
       height: 70,
       alignment: Alignment.centerLeft,
       child: CupertinoButton(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

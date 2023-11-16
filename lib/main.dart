@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         future: Future.delayed(const Duration(seconds: 3)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return isOnBoarding ? MyHomePage() : OnboardingScreen();
+            return isOnBoarding ? const MyHomePage() : const OnboardingScreen();
           } else {
             return Scaffold(
               backgroundColor: const Color.fromARGB(255, 7, 7, 10),
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 80,
                       width: 80,
                       child: Image.asset(
