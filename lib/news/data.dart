@@ -54,3 +54,5 @@ class FootBallNews {
     required this.img,
   });
 }
+
+String isMatchesLiveShow = '';

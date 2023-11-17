@@ -21,6 +21,7 @@ dependencies:
   overlay_support: ^2.1.0
   firebase_analytics: ^10.6.3
   json_annotation:
+  firebase_remote_config:
   google_fonts:
   flutter_secure_storage:
   cupertino_icons: ^1.0.2

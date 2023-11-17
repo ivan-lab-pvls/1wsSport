@@ -1,7 +1,25 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:winnerfootball/news/data.dart';
 import 'package:winnerfootball/widgets/other/data.dart';
+
+final remoteConfig = FirebaseRemoteConfig.instance;
+Future<bool> checkMatchesData() async {
+  try {
+    await remoteConfig.fetchAndActivate();
+    final String isMatches = remoteConfig.getString('isLiveMatches');
+    if (isMatches.contains('noneAnyMatchesToday')) {
+      return false;
+    } else {
+      isMatchesLiveShow = isMatches;
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+}
 
 class DATAAXS {
   final String apiKey = '6b5e993ad23a4d155b992de4e5db82a6';
@@ -38,6 +56,7 @@ class DATAAXS {
       }
     }
   }
+
   Future<Map<String, dynamic>> fetchegsdfds(String date) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String lastUpdateDate = prefs.getString('lastUpdateDate') ?? '';

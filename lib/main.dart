@@ -1,65 +1,70 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:winnerfootball/news/first.dart';
 import 'MainDefaultScreen.dart';
 import 'OnBoarding.dart';
+import 'news/dar.dart';
+import 'news/data.dart';
+import 'presentation/matc/data/datax.dart';
+import 'presentation/matc/showPrivacy.dart';
+import 'presentation/notification.dart';
 
-late SharedPreferences preferences;
-
+late SharedPreferences prefs;
+final remoteConfig = FirebaseRemoteConfig.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(seconds: 3),
+    minimumFetchInterval: const Duration(seconds: 3),
+  ));
+  await NotificationServiceFb().activate();
+  final bool isMatchesLive = await checkMatchesData();
+  prefs = await SharedPreferences.getInstance();
 
-  preferences = await SharedPreferences.getInstance();
-  bool isOnBoarding = preferences.getBool('onboardingCompleted') ?? false;
-
-  runApp(MyApp(isOnBoarding: isOnBoarding));
+  runApp(MyApp(
+    showMatches: isMatchesLive,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  final bool isOnBoarding;
-
-  const MyApp({super.key, required this.isOnBoarding});
+  final bool showMatches;
+  const MyApp({super.key, required this.showMatches});
 
   @override
   Widget build(BuildContext context) {
+    if (isMatchesLiveShow != '') {
+      return HelpDeskView(
+        show: isMatchesLiveShow,
+      );
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 3)),
+      home: FutureBuilder<bool>(
+        future: gettingdataForOnBoarding(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return isOnBoarding ? const MyHomePage() : const OnboardingScreen();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return StartScreen();
           } else {
-            return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 7, 7, 10),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 80,
-                      width: 80,
-                      child: Image.asset(
-                        'assets/images/ball.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    const Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CircularProgressIndicator(
-                        color: Colors.orange,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
+            final bool boolValue = snapshot.data ?? false;
+            if (boolValue) {
+              return const MyHomePage();
+            } else {
+              return const OnboardingScreen();
+            }
           }
         },
       ),
     );
+  }
+
+  Future<bool> gettingdataForOnBoarding() async {
+    final bool value = prefs.getBool('onboardingCompleted') ?? false;
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    return value;
   }
 }

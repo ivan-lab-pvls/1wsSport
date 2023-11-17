@@ -1,27 +1,22 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class HelpDeskView extends StatelessWidget {
   final String show;
 
-  const HelpDeskView({super.key, required this.show});
+  const HelpDeskView({Key? key, required this.show}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          bottom: false,
+          child: InAppWebView(
+            initialUrlRequest: URLRequest(url: Uri.parse(show)),
+          ),
         ),
-      ),
-      body: InAppWebView(
-        initialUrlRequest:
-            URLRequest(url: Uri.parse(show)),
       ),
     );
   }
